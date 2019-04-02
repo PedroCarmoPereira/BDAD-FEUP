@@ -103,7 +103,7 @@ CREATE TABLE ProfArea (
 	areaID	INTEGER,
 	PRIMARY KEY (profID, areaID),
 	FOREIGN KEY (profID) REFERENCES Prof(profID),
-	FOREIGN KEY (areaID) REFERENCES AreaCientifica(areaID),
+	FOREIGN KEY (areaID) REFERENCES AreaCientifica(areaID)
 );
 
 CREATE TABLE CursoArea (
