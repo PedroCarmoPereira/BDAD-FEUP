@@ -11,6 +11,10 @@ DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS StaffAdminSala;
 DROP TABLE IF EXISTS AreaCientifica;
 DROP TABLE IF EXISTS SubArea;
+DROP TABLE IF EXISTS ProfArea;
+DROP TABLE IF EXISTS StaffDoCurso;
+DROP TABLE IF EXISTS CursoArea;
+--DROP TABLE IF EXISTS Leciona;
 
 CREATE TABLE AreaTrabalho (
 	nome TEXT PRIMARY KEY
@@ -52,6 +56,13 @@ CREATE TABLE Curso (
 	FOREIGN KEY (diretor) REFERENCES Prof(profID)
 );
 
+CREATE TABLE StaffDoCurso (
+	codigo	INTEGER PRIMARY KEY,
+	staffID	INTEGER,
+	FOREIGN KEY (codigo) REFERENCES Curso(codigo),
+	FOREIGN KEY (staffID) REFERENCES Staff(staffID)
+);
+
 CREATE TABLE Estudante (
 	estudanteID	INTEGER PRIMARY KEY,
 	nome 		TEXT NOT NULL,
@@ -85,6 +96,21 @@ CREATE TABLE SubArea (
 	PRIMARY KEY (subID, supID),
 	FOREIGN KEY (subID) REFERENCES AreaCientifica,
 	FOREIGN KEY (supID) REFERENCES AreaCientifica
+);
+
+CREATE TABLE ProfArea (
+	profID 	INTEGER,
+	areaID	INTEGER,
+	PRIMARY KEY (profID, areaID),
+	FOREIGN KEY (profID) REFERENCES Prof(profID),
+	FOREIGN KEY (areaID) REFERENCES AreaCientifica(areaID),
+);
+
+CREATE TABLE CursoArea (
+	codigo 	INTEGER	PRIMARY KEY,
+	areaID	INTEGER,
+	FOREIGN KEY (codigo) REFERENCES Curso(codigo),
+	FOREIGN KEY (areaID) REFERENCES AreaCientifica(areaID)
 );
 
 
