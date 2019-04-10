@@ -25,7 +25,6 @@ CREATE TABLE Staff (
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
 	nif 		INTEGER UNIQUE,
-	FOREIGN KEY (areaTrab) REFERENCES AreaTrabalho(nome)
 );
 
 CREATE TABLE Gabinete (
@@ -63,7 +62,7 @@ CREATE TABLE Prof (
 	numTele		INTEGER,
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
-	nif			INTEGER UNIQUE,
+	nif		INTEGER UNIQUE,
 	numGabin	INTEGER,
 	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero)
 );
@@ -80,6 +79,7 @@ CREATE TABLE Leciona  (
 CREATE TABLE Classificacao (
 	estudanteID  INTEGER,
 	codigoCurso INTEGER,
+  valor INTEGER,
 	PRIMARY KEY (estudanteID, codigoCurso),
 	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID),
 	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
