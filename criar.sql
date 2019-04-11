@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS EstudanteNucleo;
 CREATE TABLE Staff (
 	staffID		INTEGER PRIMARY KEY,
 	nome 		TEXT NOT NULL,
-	numTele		INTEGER,
+	numTele		INTEGER NOT NULL,
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
 	nif 		INTEGER UNIQUE,
@@ -39,8 +39,8 @@ CREATE TABLE Curso (
 );
 
 CREATE TABLE StaffDoCurso (
-	codigo	INTEGER PRIMARY KEY,
-	staffID	INTEGER,
+	staffID	INTEGER PRIMARY KEY,
+	codigo	INTEGER,
 	FOREIGN KEY (codigo) REFERENCES Curso(codigo),
 	FOREIGN KEY (staffID) REFERENCES Staff(staffID)
 );
@@ -59,14 +59,13 @@ CREATE TABLE Estudante (
 CREATE TABLE Prof (
 	profID		INTEGER PRIMARY KEY,
 	nome		TEXT NOT NULL,
-	numTele		INTEGER,
+	numTele		INTEGER NOT NULL,
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
 	nif		INTEGER UNIQUE,
 	numGabin	INTEGER,
 	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero)
 );
-
 
 CREATE TABLE Leciona  (
 	profID INTEGER,
