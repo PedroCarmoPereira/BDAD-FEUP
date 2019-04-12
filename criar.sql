@@ -24,7 +24,7 @@ CREATE TABLE Staff (
 	numTele		INTEGER NOT NULL,
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
-	nif 		INTEGER UNIQUE,
+	nif 		INTEGER UNIQUE
 );
 
 CREATE TABLE Gabinete (
@@ -85,7 +85,7 @@ CREATE TABLE Classificacao (
 );
 
 CREATE TABLE Lab (
-	labID INTEGER,
+	labID INTEGER UNIQUE,
 	nome Text Not NULL,
 	profID INTEGER,
 	PRIMARY KEY (labID, profID),
@@ -96,7 +96,7 @@ CREATE TABLE ProfAssocLab (
 	profID INTEGER,
 	labID INTEGER,
 	PRIMARY KEY (profID, labID),
-	FOREIGN KEY (profID) REFERENCES ProfAssocLab(profID),
+	FOREIGN KEY (profID) REFERENCES Prof(profID),
 	FOREIGN KEY (labID) REFERENCES Lab(labID)
 );
 
@@ -126,7 +126,7 @@ CREATE TABLE Nucleo (
 	nucleoID INTEGER PRIMARY KEY,
 	nome Text NOT NULL,
 	sala Text UNIQUE,
-	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID),
+	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID)
 );
 
 CREATE TABLE EstudanteNucleo (
