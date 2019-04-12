@@ -78,7 +78,7 @@ CREATE TABLE Leciona  (
 CREATE TABLE Classificacao (
 	estudanteID  INTEGER,
 	codigoCurso INTEGER,
-  valor INTEGER,
+  valor REAL CHECK (valor >= 0 and valor <= 20),
 	PRIMARY KEY (estudanteID, codigoCurso),
 	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID),
 	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
