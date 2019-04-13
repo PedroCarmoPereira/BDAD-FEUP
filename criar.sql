@@ -35,14 +35,14 @@ CREATE TABLE Curso (
 	codigo	INTEGER	PRIMARY KEY,
 	nome 	TEXT NOT NULL,
 	diretor INTEGER,
-	FOREIGN KEY (diretor) REFERENCES Prof(profID)
+	FOREIGN KEY (diretor) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE StaffDoCurso (
 	staffID	INTEGER PRIMARY KEY,
 	codigo	INTEGER,
-	FOREIGN KEY (codigo) REFERENCES Curso(codigo),
-	FOREIGN KEY (staffID) REFERENCES Staff(staffID)
+	FOREIGN KEY (codigo) REFERENCES Curso(codigo) ON DELETE CASCADE,
+	FOREIGN KEY (staffID) REFERENCES Staff(staffID) ON DELETE CASCADE
 );
 
 CREATE TABLE Estudante (
@@ -53,7 +53,7 @@ CREATE TABLE Estudante (
 	morada		TEXT NOT NULL,
 	regimeTotal	BIT NOT NULL,
 	codigoCurso	INTEGER,
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
+	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE SET NULL
 );
 
 CREATE TABLE Prof (
@@ -62,17 +62,17 @@ CREATE TABLE Prof (
 	numTele		INTEGER NOT NULL,
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
-	nif		INTEGER UNIQUE,
+	nif 		INTEGER UNIQUE,
 	numGabin	INTEGER,
-	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero)
+	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero) ON DELETE SET NULL
 );
 
 CREATE TABLE Leciona  (
 	profID INTEGER,
 	codigoCurso INTEGER,
 	PRIMARY KEY (profID, codigoCurso),
-	FOREIGN KEY (profID) REFERENCES Prof(profID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
+	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE,
+	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE Classificacao (
@@ -80,8 +80,8 @@ CREATE TABLE Classificacao (
 	codigoCurso INTEGER,
   valor REAL CHECK (valor >= 0 and valor <= 20),
 	PRIMARY KEY (estudanteID, codigoCurso),
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
+	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
+	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE Lab (
@@ -89,27 +89,27 @@ CREATE TABLE Lab (
 	nome Text Not NULL,
 	profID INTEGER,
 	PRIMARY KEY (labID, profID),
-	FOREIGN KEY (profID) REFERENCES Prof(profID)
+	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE ProfAssocLab (
 	profID INTEGER,
 	labID INTEGER,
 	PRIMARY KEY (profID, labID),
-	FOREIGN KEY (profID) REFERENCES Prof(profID),
-	FOREIGN KEY (labID) REFERENCES Lab(labID)
+	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE,
+	FOREIGN KEY (labID) REFERENCES Lab(labID) ON DELETE CASCADE
 );
 
 CREATE TABLE ComissaoExecutiva (
 	profID INTEGER PRIMARY KEY,
-	FOREIGN KEY (profID) REFERENCES Prof(profID)
+	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE
 );
 
 CREATE TABLE ComissaoCientifica (
 	codigoCurso INTEGER,
 	profID INTEGER,
 	PRIMARY KEY (codigoCurso, profID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo)
+	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE ComissaoAcompanhamento (
@@ -117,24 +117,23 @@ CREATE TABLE ComissaoAcompanhamento (
 	estudanteID INTEGER,
 	profID INTEGER,
 	PRIMARY KEY (codigoCurso, estudanteID, profID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo),
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID),
-	FOREIGN KEY (profID) REFERENCES Prof(profID)
+	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE,
+	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE SET NULL,
+	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE Nucleo (
 	nucleoID INTEGER PRIMARY KEY,
 	nome Text NOT NULL,
 	sala Text UNIQUE,
-	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID)
 );
 
 CREATE TABLE EstudanteNucleo (
 	estudanteID INTEGER,
 	nucleoID INTEGER,
 	PRIMARY KEY (estudanteID, nucleoID),
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID),
-	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID)
+	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
+	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID) ON DELETE CASCADE
 );
 
 COMMIT TRANSACTION;
