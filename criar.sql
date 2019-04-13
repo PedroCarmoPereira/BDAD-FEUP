@@ -21,14 +21,14 @@ DROP TABLE IF EXISTS EstudanteNucleo;
 CREATE TABLE Staff (
 	staffID		INTEGER PRIMARY KEY,
 	nome 		TEXT NOT NULL,
-	numTele		INTEGER NOT NULL,
+	numTele		INTEGER NOT NULL CHECK (numTele <= 999999999 and numTele > 99999999),
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
-	nif 		INTEGER UNIQUE
+	nif 		INTEGER UNIQUE NOT NULL CHECK (numTele <= 999999999 and numTele > 99999999) 
 );
 
 CREATE TABLE Gabinete (
-	numero  Text PRIMARY KEY
+	numero  Text PRIMARY KEY CHECK (length(numero) == 4) 
 );
 
 CREATE TABLE Curso (
@@ -48,7 +48,7 @@ CREATE TABLE StaffDoCurso (
 CREATE TABLE Estudante (
 	estudanteID	INTEGER PRIMARY KEY,
 	nome 		TEXT NOT NULL,
-	numTele		INTEGER,
+	numTele		INTEGER NOT NULL CHECK (numTele <= 999999999 and numTele > 99999999),
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
 	regimeTotal	BIT NOT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE Estudante (
 CREATE TABLE Prof (
 	profID		INTEGER PRIMARY KEY,
 	nome		TEXT NOT NULL,
-	numTele		INTEGER NOT NULL,
+	numTele		INTEGER NOT NULL CHECK (numTele <= 999999999 and numTele > 99999999),
 	dataNasc	DATE NOT NULL,
 	morada		TEXT NOT NULL,
-	nif 		INTEGER UNIQUE,
+	nif 		INTEGER UNIQUE CHECK (numTele <= 999999999 and numTele > 99999999),
 	numGabin	INTEGER,
 	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero) ON DELETE SET NULL
 );
@@ -76,9 +76,9 @@ CREATE TABLE Leciona  (
 );
 
 CREATE TABLE Classificacao (
-	estudanteID  INTEGER,
-	codigoCurso INTEGER,
-  valor REAL CHECK (valor >= 0 and valor <= 20),
+	estudanteID  INTEGER NOT NULL,
+	codigoCurso INTEGER NOT NULL,
+  	valor REAL CHECK (valor >= 0 and valor <= 20),
 	PRIMARY KEY (estudanteID, codigoCurso),
 	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
 	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
@@ -125,7 +125,7 @@ CREATE TABLE ComissaoAcompanhamento (
 CREATE TABLE Nucleo (
 	nucleoID INTEGER PRIMARY KEY,
 	nome Text NOT NULL,
-	sala Text UNIQUE,
+	sala Text UNIQUE
 );
 
 CREATE TABLE EstudanteNucleo (
