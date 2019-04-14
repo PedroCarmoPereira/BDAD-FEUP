@@ -39,8 +39,8 @@ CREATE TABLE Curso (
 );
 
 CREATE TABLE StaffDoCurso (
-	staffID	  INTEGER PRIMARY KEY,
-	codigo	  INTEGER,
+	staffID       INTEGER PRIMARY KEY,
+	codigoCurso   INTEGER,
 	FOREIGN KEY (codigo) REFERENCES Curso(codigo) ON DELETE CASCADE,
 	FOREIGN KEY (staffID) REFERENCES Staff(staffID) ON DELETE CASCADE
 );
