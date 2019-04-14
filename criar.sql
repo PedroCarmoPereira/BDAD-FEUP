@@ -21,14 +21,14 @@ DROP TABLE IF EXISTS EstudanteNucleo;
 CREATE TABLE Staff (
 	staffID   INTEGER PRIMARY KEY,
 	nome      TEXT NOT NULL,
-	numTele	  VARCHAR(9) UNIQUE NOT NULL,
+	numTele	  INTEGER NOT NULL CHECK (length (numTele) = 9),
 	dataNasc  DATE NOT NULL,
 	morada    TEXT NOT NULL,
-	nif       VARCHAR(9) UNIQUE NOT NULL
+	nif       INTEGER UNIQUE NOT NULL CHECK (length (nif) = 9)
 );
 
 CREATE TABLE Gabinete (
-	numero  VARCHAR(4) PRIMARY KEY 
+	numero  Text PRIMARY KEY CHECK (length (numero) = 4)
 );
 
 CREATE TABLE Curso (
@@ -48,7 +48,7 @@ CREATE TABLE StaffDoCurso (
 CREATE TABLE Estudante (
 	estudanteID	  INTEGER PRIMARY KEY,
 	nome 		      TEXT NOT NULL,
-	numTele		    VARCHAR(9) UNIQUE NOT NULL,
+	numTele		    INTEGER UNIQUE NOT NULL CHECK (length(numTele) = 9),
 	dataNasc	    DATE NOT NULL,
 	morada		    TEXT NOT NULL,
 	regimeTotal   BIT NOT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE Estudante (
 CREATE TABLE Prof (
 	profID    INTEGER PRIMARY KEY,
 	nome      TEXT NOT NULL,
-	numTele   VARCHAR(9) UNIQUE NOT NULL,
+	numTele   INTEGER UNIQUE NOT NULL CHECK (length (numTele) = 9),
 	dataNasc  DATE NOT NULL,
 	morada    TEXT NOT NULL,
-	nif       VARCHAR(9) UNIQUE,
+	nif       INTEGER UNIQUE CHECK (length (nif) = 9),
 	numGabin  INTEGER,
 	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero) ON DELETE SET NULL
 );
