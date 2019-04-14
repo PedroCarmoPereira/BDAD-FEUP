@@ -78,7 +78,7 @@ CREATE TABLE Leciona  (
 CREATE TABLE Classificacao (
 	estudanteID   INTEGER NOT NULL,
 	codigoCurso   INTEGER NOT NULL,
-  valor         REAL CHECK (valor >= 0 and valor <= 20),
+  	valor         REAL CHECK (valor >= 0 and valor <= 20),
 	PRIMARY KEY (estudanteID, codigoCurso),
 	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
 	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
@@ -124,7 +124,7 @@ CREATE TABLE ComissaoAcompanhamento (
 
 CREATE TABLE Nucleo (
 	nucleoID  INTEGER PRIMARY KEY,
-	nome      Text NOT NULL,
+	nome      Text UNIQUE NOT NULL,
 	sala      Text UNIQUE
 );
 
