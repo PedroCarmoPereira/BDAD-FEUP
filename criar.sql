@@ -19,12 +19,33 @@ DROP TABLE IF EXISTS EstudanteNucleo;
 
 
 CREATE TABLE Staff (
-	staffID   INTEGER PRIMARY KEY,
-	nome      TEXT NOT NULL,
-	numTele	  INTEGER NOT NULL CHECK (length (numTele) = 9),
-	dataNasc  DATE NOT NULL,
-	morada    TEXT NOT NULL,
-	nif       INTEGER UNIQUE NOT NULL CHECK (length (nif) = 9)
+	staffID     INTEGER PRIMARY KEY,
+	nome        TEXT NOT NULL,
+	telemovel	  INTEGER NOT NULL CHECK (length (telemovel) = 9),
+	dataNasc    DATE NOT NULL,
+	morada      TEXT NOT NULL,
+	nif         INTEGER UNIQUE NOT NULL CHECK (length (nif) = 9)
+);
+
+CREATE TABLE Estudante (
+	estudanteID	  INTEGER PRIMARY KEY,
+	nome 		      TEXT NOT NULL,
+	telemovel		  INTEGER UNIQUE NOT NULL CHECK (length(telemovel) = 9),
+	dataNasc	    DATE NOT NULL,
+	morada		    TEXT NOT NULL,
+	curso	        INTEGER,
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE SET NULL
+);
+
+CREATE TABLE Prof (
+	profID      INTEGER PRIMARY KEY,
+	nome        TEXT NOT NULL,
+	telemovel   INTEGER UNIQUE NOT NULL CHECK (length (telemovel) = 9),
+	dataNasc    DATE NOT NULL,
+	morada      TEXT NOT NULL,
+	nif         INTEGER UNIQUE CHECK (length (nif) = 9),
+	numGabin    INTEGER,
+	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero) ON DELETE SET NULL
 );
 
 CREATE TABLE Gabinete (
@@ -39,87 +60,67 @@ CREATE TABLE Curso (
 );
 
 CREATE TABLE StaffDoCurso (
-	staffID       INTEGER PRIMARY KEY,
-	codigoCurso   INTEGER,
-	FOREIGN KEY (codigo) REFERENCES Curso(codigo) ON DELETE CASCADE,
-	FOREIGN KEY (staffID) REFERENCES Staff(staffID) ON DELETE CASCADE
-);
-
-CREATE TABLE Estudante (
-	estudanteID	  INTEGER PRIMARY KEY,
-	nome 		      TEXT NOT NULL,
-	numTele		    INTEGER UNIQUE NOT NULL CHECK (length(numTele) = 9),
-	dataNasc	    DATE NOT NULL,
-	morada		    TEXT NOT NULL,
-	regimeTotal   BIT NOT NULL,
-	codigoCurso	  INTEGER,
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE SET NULL
-);
-
-CREATE TABLE Prof (
-	profID    INTEGER PRIMARY KEY,
-	nome      TEXT NOT NULL,
-	numTele   INTEGER UNIQUE NOT NULL CHECK (length (numTele) = 9),
-	dataNasc  DATE NOT NULL,
-	morada    TEXT NOT NULL,
-	nif       INTEGER UNIQUE CHECK (length (nif) = 9),
-	numGabin  INTEGER,
-	FOREIGN KEY (numGabin) REFERENCES Gabinete(numero) ON DELETE SET NULL
+	staff       INTEGER PRIMARY KEY,
+	curso   INTEGER,
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE,
+	FOREIGN KEY (staff) REFERENCES Staff(staffID) ON DELETE CASCADE
 );
 
 CREATE TABLE Leciona  (
-	profID        INTEGER,
-	codigoCurso   INTEGER,
-	PRIMARY KEY (profID, codigoCurso),
-	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE,
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
+	prof        INTEGER,
+	curso   INTEGER,
+	PRIMARY KEY (prof, curso),
+	FOREIGN KEY (prof) REFERENCES Prof(profID) ON DELETE CASCADE,
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE
 );
 
-CREATE TABLE Classificacao (
-	estudanteID   INTEGER NOT NULL,
-	codigoCurso   INTEGER NOT NULL,
-  	valor         REAL CHECK (valor >= 0 and valor <= 20),
-	PRIMARY KEY (estudanteID, codigoCurso),
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
+CREATE TABLE Frequencia (
+	estudante     INTEGER NOT NULL,
+	curso         INTEGER NOT NULL,
+  valor         REAL DEFAULT (0) CHECK (valor >= 0 and valor <= 20),
+  regimeTotal   BIT NOT NULL,
+	PRIMARY KEY (estudante, curso),
+	FOREIGN KEY (estudante) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE Lab (
-	labID    INTEGER UNIQUE,
-	nome    Text Not NULL,
-	profID  INTEGER,
-	PRIMARY KEY (labID, profID),
-	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE SET NULL
+	labID          INTEGER UNIQUE,
+	nome           Text Not NULL,
+	coordenador    INTEGER,
+	PRIMARY KEY (labID, coordenador),
+	FOREIGN KEY (coordenador) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE ProfAssocLab (
-	profID  INTEGER,
-	labID   INTEGER,
-	PRIMARY KEY (profID, labID),
-	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE,
-	FOREIGN KEY (labID) REFERENCES Lab(labID) ON DELETE CASCADE
+	prof  INTEGER,
+	lab   INTEGER,
+	PRIMARY KEY (prof, lab),
+	FOREIGN KEY (prof) REFERENCES Prof(profID) ON DELETE CASCADE,
+	FOREIGN KEY (lab) REFERENCES Lab(labID) ON DELETE CASCADE
 );
 
 CREATE TABLE ComissaoExecutiva (
-	profID  INTEGER PRIMARY KEY,
-	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE CASCADE
+	prof  INTEGER PRIMARY KEY,
+	FOREIGN KEY (prof) REFERENCES Prof(profID) ON DELETE CASCADE
 );
 
 CREATE TABLE ComissaoCientifica (
-	codigoCurso   INTEGER,
-	profID        INTEGER,
-	PRIMARY KEY (codigoCurso, profID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE
+	curso   INTEGER,
+	prof    INTEGER,
+	PRIMARY KEY (curso, prof),
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE,
+  FOREIGN KEY (prof) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE ComissaoAcompanhamento (
-	codigoCurso   INTEGER,
-	estudanteID   INTEGER,
-	profID        INTEGER,
-	PRIMARY KEY (codigoCurso, estudanteID, profID),
-	FOREIGN KEY (codigoCurso) REFERENCES Curso(codigo) ON DELETE CASCADE,
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE SET NULL,
-	FOREIGN KEY (profID) REFERENCES Prof(profID) ON DELETE SET NULL
+	curso       INTEGER,
+	estudante   INTEGER,
+	prof        INTEGER,
+	PRIMARY KEY (curso, estudante, prof),
+	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE,
+	FOREIGN KEY (estudante) REFERENCES Estudante(estudanteID) ON DELETE SET NULL,
+	FOREIGN KEY (prof) REFERENCES Prof(profID) ON DELETE SET NULL
 );
 
 CREATE TABLE Nucleo (
@@ -129,11 +130,11 @@ CREATE TABLE Nucleo (
 );
 
 CREATE TABLE EstudanteNucleo (
-	estudanteID   INTEGER,
-	nucleoID      INTEGER,
-	PRIMARY KEY (estudanteID, nucleoID),
-	FOREIGN KEY (estudanteID) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
-	FOREIGN KEY (nucleoID) REFERENCES Nucleo(nucleoID) ON DELETE CASCADE
+	estudante   INTEGER,
+	nucleo      INTEGER,
+	PRIMARY KEY (estudante, nucleo),
+	FOREIGN KEY (estudante) REFERENCES Estudante(estudanteID) ON DELETE CASCADE,
+	FOREIGN KEY (nucleo) REFERENCES Nucleo(nucleoID) ON DELETE CASCADE
 );
 
 COMMIT TRANSACTION;
