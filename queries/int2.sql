@@ -19,6 +19,10 @@ SELECT P.nome as nome1, S.nome as nome2, P.dataNasc
 FROM Prof P JOIN Staff S
 ON P.dataNasc = S.dataNasc
 UNION
+SELECT S1.nome as nome1, S2.nome as nome2, S1.dataNasc
+FROM Staff S1, Staff S2
+WHERE S1.dataNasc = S2.dataNasc AND S1.staffID > S2.staffID
+UNION
 SELECT E1.nome as nome1, E2.nome as nome2, E1.dataNasc
 FROM Estudante E1, Estudante E2
 WHERE E1.dataNasc = E2.dataNasc AND E1.estudanteID > E2.estudanteID;
