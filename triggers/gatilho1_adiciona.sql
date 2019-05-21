@@ -1,0 +1,7 @@
+CREATE TRIGGER R1
+BEFORE INSERT ON Curso
+FOR EACH ROW
+WHEN exists (SELECT * FROM Curso WHERE Curso.nome = New.nome)
+BEGIN
+  SELECT RAISE (ignore);
+END;
