@@ -2,8 +2,8 @@ PRAGMA foreign_keys = on;
 
 --STAFF
 INSERT INTO Staff VALUES (9887386259844, 'Maria Idalina Gomes Silva', 918710753, '1961-8-19', 'Rua Jardim', 818060281);
-INSERT INTO Staff VALUES (5738070340096, 'Marisa Isabel Magalhaes Brandao Silva', 929522240, '1962-1-14', 'Rua Armazens', 549884598);
-INSERT INTO Staff VALUES (9603328037946, 'Pedro Miguel Carvalho da Silva', 932788232, '1966-1-21', 'Rua Oliveirinhas', 161923067);
+INSERT INTO Staff VALUES (5738070340096, 'Marisa Isabel Magalhaes Brandao Silva', 929522240, '1961-8-19', 'Rua Armazens', 549884598);
+INSERT INTO Staff VALUES (9603328037946, 'Pedro Miguel Carvalho da Silva', 932788232, '1962-3-29', 'Rua Oliveirinhas', 161923067);
 INSERT INTO Staff VALUES (5590869113534, 'Sandra Maria Moura Pinto Pires', 918707990, '1963-5-13', 'Rua Tapada Marinha', 765454460);
 
 --GABINETE
@@ -31,7 +31,7 @@ INSERT INTO Prof VALUES (9479744973786, 'Ademar Manuel Teixeira de Aguiar', 9275
 INSERT INTO Prof VALUES (7720139408865, 'Jorge Alves da Silva', 921306633, '1961-4-9', 'Travessa Choupelo', 877844231, 'I318');
 INSERT INTO Prof VALUES (3958591238112, 'Rosaldo José Fernandes Rossetti', 922468166, '1952-7-13', 'Rua Patrao Caramelho', 655551266, 'I120');
 INSERT INTO Prof VALUES (8592086788462, 'João Carlos Pascoal Faria', 965813237, '1951-3-2', 'Rua Parque Gondarim', 408193607, 'I126');
-INSERT INTO Prof VALUES (9968652142653, 'João Paulo de Castro Canas Ferreira', 914356056, '1959-12-20', 'Rua Pescador Bacalhoeiro', 157141788, 'I237');
+INSERT INTO Prof VALUES (9968652142653, 'João Paulo de Castro Canas Ferreira', 914356056, '1970-12-13', 'Rua Pescador Bacalhoeiro', 157141788, 'I237');
 INSERT INTO Prof VALUES (9829620062577, 'Jorge Manuel Gomes Barbosa', 916996365, '1960-5-3', 'Rua Cortinhas Fonte', 648826349, 'I314');
 INSERT INTO Prof VALUES (1245706654551, 'Luís Paulo Gonçalves dos Reis', 921323822, '1955-3-21', 'Avenida Doutor Fernando Gomes', 460130684, null);
 INSERT INTO Prof VALUES (2597508207073, 'Maria Cristina de Carvalho Alves Ribeiro', 961422141, '1957-10-31', 'Rua Nogueiras', 746142719, 'I135');
@@ -79,7 +79,7 @@ INSERT INTO StaffDoCurso VALUES (5738070340096, 1529956949881);
 INSERT INTO Estudante VALUES (6735599434639, 'Simao Pereira Oliveira', 927727373, '2000-5-16', 'Rua Cimo Vila', 4897707609685);
 INSERT INTO Estudante VALUES (9261082237286, 'Carlos Eduardo da Nova Duarte', 921609992, '1996-10-8', 'Rua Patrao Caramelho', 4897707609685);
 INSERT INTO Estudante VALUES (8572795756181, 'Pedro Maria Passos Ribeiro do Carmo Pereira', 933404543, '2000-3-15', 'Rua Cimo Vila', 4897707609685);
-INSERT INTO Estudante VALUES (4457282272356, 'Afonso Soares Mendonça', 966742115, '1999-8-15', 'Rua Luis Sardoeira', 4897707609685);
+INSERT INTO Estudante VALUES (4457282272356, 'Afonso Soares Mendonça', 966742115, '1996-8-8', 'Rua Luis Sardoeira', 4897707609685);
 INSERT INTO Estudante VALUES (6707799846725, 'Moises Pimenta Rocha', 934950530, '1996-10-25', 'Rua Costa', 4897707609685);
 INSERT INTO Estudante VALUES (2931561093875, 'Paulo Daniel da Silva Araujo', 921251432, '2000-7-7', 'Rua Cimo Vila', 4897707609685);
 INSERT INTO Estudante VALUES (8463026778482, 'Ana Teresa Silva', 923179362, '1996-1-9', 'Rua Nogueiras', 4897707609685);
