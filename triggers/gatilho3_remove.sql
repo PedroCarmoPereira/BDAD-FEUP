@@ -1,0 +1,2 @@
+DROP TRIGGER IF EXISTS EstInCA;
+DELETE FROM Frequencia WHERE Frequencia.estudante = 1122334455667;
