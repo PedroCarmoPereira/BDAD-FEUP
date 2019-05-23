@@ -1,7 +1,6 @@
 CREATE TRIGGER R1
-BEFORE INSERT ON Curso
+AFTER INSERT ON Lab
 FOR EACH ROW
-WHEN exists (SELECT * FROM Curso WHERE Curso.nome = New.nome)
 BEGIN
-  SELECT RAISE (ignore);
+  INSERT INTO ProfAssocLab VALUES (New.coordenador, New.labID);
 END;

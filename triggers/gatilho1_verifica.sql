@@ -1,5 +1,7 @@
-SELECT * FROM Curso;
-INSERT INTO Curso VALUES (1122334455667, 'Mestrado Integrado em Engenharia Informatica e Computacao', 8592086788462);
-SELECT * FROM Curso;
-INSERT INTO Curso VALUES (1122334455667, 'Mestrado em Multimedia', 8592086788462);
-SELECT * FROM Curso;
+SELECT * FROM Lab;
+SELECT * FROM PorfAssocLab;
+
+INSERT INTO Lab VALUES (3132672067757, 'Laboratorio de Base de Dados', 4236790716546);
+
+SELECT * FROM Lab;
+SELECT * FROM PorfAssocLab;

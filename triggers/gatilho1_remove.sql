@@ -1,2 +1,2 @@
 DROP TRIGGER IF EXISTS R1;
-DELETE FROM Curso WHERE Curso.nome = 'Mestrado em Multimedia';
+DELETE FROM Lab WHERE Lab.nome ='Laboratorio de Base de Dados';
