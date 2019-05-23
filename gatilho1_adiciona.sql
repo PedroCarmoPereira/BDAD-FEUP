@@ -1,0 +1,6 @@
+CREATE TRIGGER CoordToAssoc
+AFTER INSERT ON Lab
+FOR EACH ROW
+BEGIN
+  INSERT INTO ProfAssocLab VALUES (New.coordenador, New.labID);
+END;
