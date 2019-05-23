@@ -1,7 +1,0 @@
-SELECT * FROM Lab;
-SELECT * FROM PorfAssocLab;
-
-INSERT INTO Lab VALUES (3132672067757, 'Laboratorio de Base de Dados', 4236790716546);
-
-SELECT * FROM Lab;
-SELECT * FROM PorfAssocLab;
