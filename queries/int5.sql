@@ -2,7 +2,7 @@
 .headers on
 .nullvalue NULL
 
-SELECT valor AS 'classificação 10% pop. estudantil'
+SELECT valor
 FROM Frequencia
 ORDER BY valor ASC
 LIMIT 1
