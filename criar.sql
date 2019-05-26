@@ -78,7 +78,7 @@ CREATE TABLE Frequencia (
 	estudante     INTEGER NOT NULL,
 	curso         INTEGER NOT NULL,
   	valor         REAL DEFAULT (0) CHECK (valor >= 0 and valor <= 20),
-  	regimeTotal   BIT NOT NULL,
+  	regimeTotal   BIT DEFAULT (0) NOT NULL,
 	PRIMARY KEY (estudante, curso),
 	FOREIGN KEY (estudante) REFERENCES Estudante(estudanteID) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (curso) REFERENCES Curso(codigo) ON DELETE CASCADE ON UPDATE CASCADE
